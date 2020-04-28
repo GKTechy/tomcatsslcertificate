@@ -22,11 +22,9 @@
 
 3.	Add key in server.xml
 
-<Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-              maxThreads="150" scheme="https" secure="true"
-              clientAuth="false" sslProtocol="TLS"
-	       keystoreFile="d:\localssl"
-	       keystorePass="samplessl" />
+
+Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"  maxThreads="150" scheme="https" secure="true"
+              clientAuth="false" sslProtocol="TLS"     keystoreFile="d:\localssl" keystorePass="samplessl" /
         keystoreFile : keystore path
 	keystorePass  : keystore password		  
 
