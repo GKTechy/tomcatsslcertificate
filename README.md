@@ -10,26 +10,29 @@
 	keytool -importkeystore -srckeystore d:\localssl -destkeystore d:\localssl -deststoretype pkcs12
 	
 	
-2.	add key in server.xml
+2.	remove the 8080 in url
+	Edit the server.xml file
+	
+	<Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+	   to 
+	<Connector port="80" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="443" />
+	
+	restart the server
+
+3.	Add key in server.xml
 
 <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
               maxThreads="150" scheme="https" secure="true"
               clientAuth="false" sslProtocol="TLS"
 	       keystoreFile="d:\localssl"
 	       keystorePass="samplessl" />
-		  
-3. remove 8433 port in url: server.xml
+        keystoreFile : keystore path
+	keystorePass  : keystore password		  
 
- <Connector port="80" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="443" />
-			   
-	<Connector port="443" protocol="HTTP/1.1" SSLEnabled="true"
-              maxThreads="150" scheme="https" secure="true"
-              clientAuth="false" sslProtocol="TLS"
-	       keystoreFile="d:\localssl"
-	       keystorePass="samplessl" />
-	
 4. remove projet name in url : server.xml
 				
 		<Host name="localhost"  appBase="webapps"          unpackWARs="true" autoDeploy="true">
@@ -39,9 +42,11 @@
 				 directory="logs"   prefix="localhost_access_log." suffix=".txt"
 				 pattern="%h %l %u %t &quot;%r&quot; %s %b" resolveHosts="false" />   
 		</Host>	
-
+	remove the old Host Tag Details
+	restart the server and check the url https://localhost/
+	
+	
 5. http to https: web.xml
-
 	<security-constraint>
 
 		<web-resource-collection>
@@ -53,14 +58,13 @@
 		</user-data-constraint>
 
 	</security-constraint>
+	before the </webapp> tag.
 6. ssl certificate install into keystore
 	
 	1.Install the root certificate:	AddTrustExternalCARoot.crt
 	2.Install the intermediate certificate:	USERTrustRSAAddTrustCA.crt
 	3.Install the Main(domain) certificate:	domainname.crt
 	
-	
-	keytool -import -alias root -keystore keytoolfile -trustcacerts -file AddTrustExternalCARoot.crt
 	
 	
   
