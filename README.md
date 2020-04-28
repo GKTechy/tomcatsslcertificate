@@ -10,16 +10,10 @@
 	keytool -importkeystore -srckeystore d:\localssl -destkeystore d:\localssl -deststoretype pkcs12
 	
 	
-2.	remove the 8080 in url
-	Edit the server.xml file
-	
-	<Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8443" />
+2.	remove the 8080 in url,	Edit the server.xml file
+	<Connector port="8080" protocol="HTTP/1.1"   connectionTimeout="20000" redirectPort="8443" />
 	   to 
-	<Connector port="80" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="443" />
+	<Connector port="80" protocol="HTTP/1.1"  connectionTimeout="20000" redirectPort="443" />
 	
 	restart the server
 
